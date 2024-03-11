@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.dicoding.tourismapp">
+    package="com.aryasurya.gamebro">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -13,7 +13,7 @@
         android:theme="@style/Theme.TourismApp">
 
         <activity
-            android:name=".MainActivity"
+            android:name="com.aryasurya.gamebro.MainActivity"
             android:theme="@style/Theme.TourismApp.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,7 +23,7 @@
         </activity>
 
         <activity
-            android:name=".detail.DetailTourismActivity"
+            android:name="com.aryasurya.gamebro.detail.DetailTourismActivity"
             android:label="@string/title_activity_detail_home"
             android:theme="@style/Theme.TourismApp.NoActionBar" />
     </application>
