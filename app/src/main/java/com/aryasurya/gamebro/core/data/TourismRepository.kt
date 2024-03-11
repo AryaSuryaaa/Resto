@@ -10,6 +10,8 @@ import com.aryasurya.gamebro.core.domain.model.Tourism
 import com.aryasurya.gamebro.core.domain.repository.ITourismRepository
 import com.aryasurya.gamebro.core.utils.AppExecutors
 import com.aryasurya.gamebro.core.utils.DataMapper
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 
 class TourismRepository private constructor(
     private val remoteDataSource: RemoteDataSource,
@@ -31,31 +33,27 @@ class TourismRepository private constructor(
             }
     }
 
-    override fun getAllTourism(): LiveData<Resource<List<Tourism>>> =
-        object : NetworkBoundResource<List<Tourism>, List<TourismResponse>>(appExecutors) {
-            override fun loadFromDB(): LiveData<List<Tourism>> {
-                return Transformations.map(localDataSource.getAllTourism()) {
-                    DataMapper.mapEntitiesToDomain(it)
-                }
+    override fun getAllTourism(): Flow<Resource<List<Tourism>>> =
+        object : NetworkBoundResource<List<Tourism>, List<TourismResponse>>() {
+            override fun loadFromDB(): Flow<List<Tourism>> {
+                return localDataSource.getAllTourism().map { DataMapper.mapEntitiesToDomain(it) }
             }
 
             override fun shouldFetch(data: List<Tourism>?): Boolean =
 //                data == null || data.isEmpty()
                 true
 
-            override fun createCall(): LiveData<ApiResponse<List<TourismResponse>>> =
+            override suspend fun createCall(): Flow<ApiResponse<List<TourismResponse>>> =
                 remoteDataSource.getAllTourism()
 
-            override fun saveCallResult(data: List<TourismResponse>) {
+            override suspend fun saveCallResult(data: List<TourismResponse>) {
                 val tourismList = DataMapper.mapResponsesToEntities(data)
                 localDataSource.insertTourism(tourismList)
             }
-        }.asLiveData()
+        }.asFlow()
 
-    override fun getFavoriteTourism(): LiveData<List<Tourism>> {
-        return Transformations.map(localDataSource.getFavoriteTourism()) {
-            DataMapper.mapEntitiesToDomain(it)
-        }
+    override fun getFavoriteTourism(): Flow<List<Tourism>> {
+        return localDataSource.getFavoriteTourism().map { DataMapper.mapEntitiesToDomain(it) }
     }
 
     override fun setFavoriteTourism(tourism: Tourism, state: Boolean) {
