@@ -1,11 +1,10 @@
 package com.aryasurya.gamebro.core.data
 
+import com.aryasurya.gamebro.core.data.source.remote.RemoteDataSource
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Transformations
 import com.aryasurya.gamebro.core.data.source.remote.network.ApiResponse
 import com.aryasurya.gamebro.core.data.source.local.LocalDataSource
-import com.aryasurya.gamebro.core.data.source.local.entity.TourismEntity
-import com.aryasurya.gamebro.core.data.source.remote.RemoteDataSource
 import com.aryasurya.gamebro.core.data.source.remote.response.TourismResponse
 import com.aryasurya.gamebro.core.domain.model.Tourism
 import com.aryasurya.gamebro.core.domain.repository.ITourismRepository
@@ -41,7 +40,8 @@ class TourismRepository private constructor(
             }
 
             override fun shouldFetch(data: List<Tourism>?): Boolean =
-                data == null || data.isEmpty()
+//                data == null || data.isEmpty()
+                true
 
             override fun createCall(): LiveData<ApiResponse<List<TourismResponse>>> =
                 remoteDataSource.getAllTourism()
