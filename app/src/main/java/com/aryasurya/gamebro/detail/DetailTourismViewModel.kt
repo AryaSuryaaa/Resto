@@ -5,8 +5,9 @@ import com.aryasurya.gamebro.core.data.TourismRepository
 import com.aryasurya.gamebro.core.data.source.local.entity.TourismEntity
 import com.aryasurya.gamebro.core.domain.model.Tourism
 import com.aryasurya.gamebro.core.domain.usecase.TourismUseCase
+import javax.inject.Inject
 
-class DetailTourismViewModel(private val tourismUseCase: TourismUseCase) : ViewModel() {
+class DetailTourismViewModel @Inject constructor(private val tourismUseCase: TourismUseCase) : ViewModel() {
     fun setFavoriteTourism(tourism: Tourism, newStatus:Boolean) = tourismUseCase.setFavoriteTourism(tourism, newStatus)
 }
 
