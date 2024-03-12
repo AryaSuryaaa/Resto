@@ -10,27 +10,25 @@ import com.bumptech.glide.Glide
 import com.aryasurya.gamebro.R
 import com.aryasurya.gamebro.core.data.source.local.entity.TourismEntity
 import com.aryasurya.gamebro.core.domain.model.Tourism
-import com.aryasurya.gamebro.core.ui.ViewModelFactory
 import com.aryasurya.gamebro.databinding.ActivityDetailTourismBinding
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class DetailTourismActivity : AppCompatActivity() {
 
     companion object {
         const val EXTRA_DATA = "extra_data"
     }
 
-    @Inject
-    lateinit var factory: ViewModelFactory
+//    @Inject
+//    lateinit var factory: ViewModelFactory
 
-    private val detailTourismViewModel: DetailTourismViewModel by viewModels {
-        factory
-    }
-
+    private val detailTourismViewModel: DetailTourismViewModel by viewModels()
     private lateinit var binding: ActivityDetailTourismBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        (application as MyApplication).appComponent.inject(this)
+//        (application as MyApplication).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         binding = ActivityDetailTourismBinding.inflate(layoutInflater)
         setContentView(binding.root)

@@ -14,19 +14,18 @@ import com.aryasurya.gamebro.MyApplication
 import com.aryasurya.gamebro.R
 import com.aryasurya.gamebro.core.data.Resource
 import com.aryasurya.gamebro.core.ui.TourismAdapter
-import com.aryasurya.gamebro.core.ui.ViewModelFactory
 import com.aryasurya.gamebro.databinding.FragmentHomeBinding
 import com.aryasurya.gamebro.detail.DetailTourismActivity
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    @Inject
-    lateinit var factory: ViewModelFactory
+//    @Inject
+//    lateinit var factory: ViewModelFactory
 
-    private val homeViewModel: HomeViewModel by viewModels {
-        factory
-    }
+    private val homeViewModel: HomeViewModel by viewModels()
 
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
@@ -39,10 +38,10 @@ class HomeFragment : Fragment() {
         return binding.root
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (requireActivity().application as MyApplication).appComponent.inject(this)
-    }
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        (requireActivity().application as MyApplication).appComponent.inject(this)
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

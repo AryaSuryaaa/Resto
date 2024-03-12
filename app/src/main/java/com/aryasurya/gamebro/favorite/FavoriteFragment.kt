@@ -12,19 +12,18 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aryasurya.gamebro.MyApplication
 import com.aryasurya.gamebro.core.ui.TourismAdapter
-import com.aryasurya.gamebro.core.ui.ViewModelFactory
 import com.aryasurya.gamebro.databinding.FragmentFavoriteBinding
 import com.aryasurya.gamebro.detail.DetailTourismActivity
+import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
+@AndroidEntryPoint
 class FavoriteFragment : Fragment() {
 
-    @Inject
-    lateinit var factory: ViewModelFactory
+//    @Inject
+//    lateinit var factory: ViewModelFactory
 
-    private val favoriteViewModel: FavoriteViewModel by viewModels {
-        factory
-    }
+    private val favoriteViewModel: FavoriteViewModel by viewModels()
 
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
@@ -37,10 +36,10 @@ class FavoriteFragment : Fragment() {
         return binding.root
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        (requireActivity().application as MyApplication).appComponent.inject(this)
-    }
+//    override fun onAttach(context: Context) {
+//        super.onAttach(context)
+//        (requireActivity().application as MyApplication).appComponent.inject(this)
+//    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

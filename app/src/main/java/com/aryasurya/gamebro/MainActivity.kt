@@ -11,7 +11,9 @@ import com.aryasurya.gamebro.databinding.ActivityMainBinding
 import com.aryasurya.gamebro.favorite.FavoriteFragment
 import com.aryasurya.gamebro.home.HomeFragment
 import com.google.android.material.navigation.NavigationView
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     private lateinit var binding: ActivityMainBinding
