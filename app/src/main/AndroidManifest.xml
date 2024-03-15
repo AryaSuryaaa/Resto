@@ -24,7 +24,7 @@
         </activity>
 
         <activity
-            android:name="com.dicoding.tourismapp.detail.DetailTourismActivity"
+            android:name="com.dicoding.tourismapp.detail.DetailRestaurantActivity"
             android:label="@string/title_activity_detail_home"
             android:theme="@style/Theme.TourismApp.NoActionBar" />
     </application>

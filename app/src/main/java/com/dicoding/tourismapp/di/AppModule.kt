@@ -1,7 +1,7 @@
 package com.dicoding.tourismapp.di
 
-import com.dicoding.tourismapp.core.domain.usecase.TourismInteractor
-import com.dicoding.tourismapp.core.domain.usecase.TourismUseCase
+import com.dicoding.tourismapp.core.domain.usecase.RestaurantInteractor
+import com.dicoding.tourismapp.core.domain.usecase.RestaurantUseCase
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -14,6 +14,7 @@ abstract class AppModule {
 
     @Binds
     @ViewModelScoped
-    abstract fun provideTourismUseCase(tourismInteractor: TourismInteractor): TourismUseCase
+    abstract fun provideRestaurantUseCase(restaurantInteractor: RestaurantInteractor): RestaurantUseCase
+//    abstract fun provideTourismUseCase(tourismInteractor: TourismInteractor): TourismUseCase
 
 }

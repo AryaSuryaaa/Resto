@@ -10,9 +10,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.data.Resource
-import com.dicoding.tourismapp.core.ui.TourismAdapter
+import com.dicoding.tourismapp.core.ui.RestaurantAdapter
 import com.dicoding.tourismapp.databinding.FragmentHomeBinding
-import com.dicoding.tourismapp.detail.DetailTourismActivity
+import com.dicoding.tourismapp.detail.DetailRestaurantActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -44,27 +44,34 @@ class HomeFragment : Fragment() {
 
         if (activity != null) {
 
-            val tourismAdapter = TourismAdapter()
-            tourismAdapter.onItemClick = { selectedData ->
-                val intent = Intent(activity, DetailTourismActivity::class.java)
-                intent.putExtra(DetailTourismActivity.EXTRA_DATA, selectedData)
+//            val tourismAdapter = TourismAdapter()
+//            tourismAdapter.onItemClick = { selectedData ->
+//                val intent = Intent(activity, DetailTourismActivity::class.java)
+//                intent.putExtra(DetailTourismActivity.EXTRA_DATA, selectedData)
+//                startActivity(intent)
+//            }
+
+            val restaurantAdapter = RestaurantAdapter()
+            restaurantAdapter.onItemClick = { selectedData ->
+                val intent = Intent(activity, DetailRestaurantActivity::class.java)
+                intent.putExtra(DetailRestaurantActivity.EXTRA_DATA, selectedData)
                 startActivity(intent)
             }
 
-            homeViewModel.tourism.observe(viewLifecycleOwner) { tourism ->
-                if (tourism != null) {
-                    when (tourism) {
-                        is com.dicoding.tourismapp.core.data.Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
-                        is com.dicoding.tourismapp.core.data.Resource.Success -> {
+            homeViewModel.restaurant.observe(viewLifecycleOwner) { restaurant ->
+                if (restaurant != null) {
+                    when (restaurant) {
+                        is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
+                        is Resource.Success -> {
                             binding.progressBar.visibility = View.GONE
-                            tourismAdapter.setData(tourism.data)
+                            restaurantAdapter.setData(restaurant.data)
                         }
 
-                        is com.dicoding.tourismapp.core.data.Resource.Error -> {
+                        is Resource.Error -> {
                             binding.progressBar.visibility = View.GONE
                             binding.viewError.root.visibility = View.VISIBLE
                             binding.viewError.tvError.text =
-                                tourism.message ?: getString(R.string.something_wrong)
+                                restaurant.message ?: getString(R.string.something_wrong)
                         }
                     }
                 }
@@ -73,7 +80,7 @@ class HomeFragment : Fragment() {
             with(binding.rvTourism) {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
-                adapter = tourismAdapter
+                adapter = restaurantAdapter
             }
         }
     }

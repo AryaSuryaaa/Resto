@@ -2,8 +2,8 @@ package com.dicoding.tourismapp.core.di
 
 import android.content.Context
 import androidx.room.Room
-import com.dicoding.tourismapp.core.data.source.local.room.TourismDao
-import com.dicoding.tourismapp.core.data.source.local.room.TourismDatabase
+import com.dicoding.tourismapp.core.data.source.local.room.RestaurantDao
+import com.dicoding.tourismapp.core.data.source.local.room.RestaurantDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,13 +15,23 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 class DatabaseModule {
 
+//    @Singleton
+//    @Provides
+//    fun provideDatabase(@ApplicationContext context: Context): TourismDatabase = Room.databaseBuilder(
+//        context,
+//        TourismDatabase::class.java, "Tourism.db"
+//    ).fallbackToDestructiveMigration().build()
+//
+//    @Provides
+//    fun provideTourismDao(database: TourismDatabase): TourismDao = database.tourismDao()
+
     @Singleton
     @Provides
-    fun provideDatabase(@ApplicationContext context: Context): TourismDatabase = Room.databaseBuilder(
+    fun provideDatabase(@ApplicationContext context: Context): RestaurantDatabase = Room.databaseBuilder(
         context,
-        TourismDatabase::class.java, "Tourism.db"
+        RestaurantDatabase::class.java, "Restaurant.db"
     ).fallbackToDestructiveMigration().build()
 
     @Provides
-    fun provideTourismDao(database: TourismDatabase): TourismDao = database.tourismDao()
+    fun provideRestaurantDao(database: RestaurantDatabase): RestaurantDao = database.restaurantDao()
 }

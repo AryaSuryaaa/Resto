@@ -1,7 +1,7 @@
 package com.dicoding.tourismapp.core.di
 
-import com.dicoding.tourismapp.core.data.TourismRepository
-import com.dicoding.tourismapp.core.domain.repository.ITourismRepository
+import com.dicoding.tourismapp.core.data.RestaurantRepository
+import com.dicoding.tourismapp.core.domain.repository.IRestaurantRepository
 import dagger.Binds
 import dagger.Module
 import dagger.hilt.InstallIn
@@ -11,7 +11,10 @@ import dagger.hilt.components.SingletonComponent
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
 
+//    @Binds
+//    abstract fun provideRepository(tourismRepository: TourismRepository): ITourismRepository
+
     @Binds
-    abstract fun provideRepository(tourismRepository: TourismRepository): ITourismRepository
+    abstract fun provideRepository(restaurantRepository: RestaurantRepository): IRestaurantRepository
 
 }

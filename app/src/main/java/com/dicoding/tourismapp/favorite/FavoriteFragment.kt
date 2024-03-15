@@ -8,9 +8,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.tourismapp.core.ui.TourismAdapter
+import com.dicoding.tourismapp.core.ui.RestaurantAdapter
 import com.dicoding.tourismapp.databinding.FragmentFavoriteBinding
-import com.dicoding.tourismapp.detail.DetailTourismActivity
+import com.dicoding.tourismapp.detail.DetailRestaurantActivity
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -42,24 +42,35 @@ class FavoriteFragment : Fragment() {
 
         if (activity != null) {
 
-            val tourismAdapter = TourismAdapter()
-            tourismAdapter.onItemClick = { selectedData ->
-                val intent = Intent(activity, DetailTourismActivity::class.java)
-                intent.putExtra(DetailTourismActivity.EXTRA_DATA, selectedData)
+//            val tourismAdapter = TourismAdapter()
+//            tourismAdapter.onItemClick = { selectedData ->
+//                val intent = Intent(activity, DetailTourismActivity::class.java)
+//                intent.putExtra(DetailTourismActivity.EXTRA_DATA, selectedData)
+//                startActivity(intent)
+//            }
+            val restaurantAdapter = RestaurantAdapter()
+            restaurantAdapter.onItemClick = { selectedData ->
+                val intent = Intent(activity, DetailRestaurantActivity::class.java)
+                intent.putExtra(DetailRestaurantActivity.EXTRA_DATA, selectedData)
                 startActivity(intent)
             }
 
 
-            favoriteViewModel.favoriteTourism.observe(viewLifecycleOwner) { dataTourism ->
-                tourismAdapter.setData(dataTourism)
+//            favoriteViewModel.favoriteTourism.observe(viewLifecycleOwner) { dataTourism ->
+//                tourismAdapter.setData(dataTourism)
+//                binding.viewEmpty.root.visibility =
+//                    if (dataTourism.isNotEmpty()) View.GONE else View.VISIBLE
+//            }
+            favoriteViewModel.favoriteRestaurant.observe(viewLifecycleOwner) { dataRestaurant ->
+                restaurantAdapter.setData(dataRestaurant)
                 binding.viewEmpty.root.visibility =
-                    if (dataTourism.isNotEmpty()) View.GONE else View.VISIBLE
+                    if (dataRestaurant.isNotEmpty()) View.GONE else View.VISIBLE
             }
 
             with(binding.rvTourism) {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
-                adapter = tourismAdapter
+                adapter = restaurantAdapter
             }
         }
     }
