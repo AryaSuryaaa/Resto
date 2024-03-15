@@ -27,7 +27,6 @@ class NetworkModule {
     @Provides
     fun provideApiService(client: OkHttpClient): ApiService {
         val retrofit = Retrofit.Builder()
-//            .baseUrl("https://tourism-api.dicoding.dev/")
             .baseUrl("https://restaurant-api.dicoding.dev/")
             .addConverterFactory(GsonConverterFactory.create())
             .client(client)

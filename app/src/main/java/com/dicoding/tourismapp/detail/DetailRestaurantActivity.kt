@@ -19,14 +19,10 @@ class DetailRestaurantActivity  : AppCompatActivity() {
     const val EXTRA_DATA = "extra_data"
   }
 
-//    @Inject
-//    lateinit var factory: ViewModelFactory
-
   private val detailRestaurantViewModel : DetailRestaurantViewModel by viewModels()
   private lateinit var binding: ActivityDetailRestaurantBinding
 
   override fun onCreate(savedInstanceState: Bundle?) {
-//        (application as MyApplication).appComponent.inject(this)
     super.onCreate(savedInstanceState)
     binding = ActivityDetailRestaurantBinding.inflate(layoutInflater)
     setContentView(binding.root)

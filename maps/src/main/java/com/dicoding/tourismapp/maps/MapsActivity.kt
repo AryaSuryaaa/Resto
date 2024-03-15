@@ -26,23 +26,6 @@ class MapsActivity : AppCompatActivity() {
   }
 
   private fun getTourismData() {
-//    mapsViewModel.tourism.observe(this) { tourism ->
-//      if (tourism != null) {
-//        when (tourism) {
-//          is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
-//          is Resource.Success -> {
-//            binding.progressBar.visibility = View.GONE
-//            binding.tvMaps.text = "This is map of ${tourism.data?.get(0)?.name}"
-//          }
-//          is Resource.Error -> {
-//            binding.progressBar.visibility = View.GONE
-//            binding.tvError.visibility = View.VISIBLE
-//            binding.tvError.text = tourism.message
-//          }
-//        }
-//      }
-//    }
-//  }
     mapsViewModel.restaurant.observe(this) { restaurant ->
       if (restaurant != null) {
         when (restaurant) {

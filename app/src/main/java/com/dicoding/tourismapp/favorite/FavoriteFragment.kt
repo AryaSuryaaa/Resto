@@ -16,9 +16,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FavoriteFragment : Fragment() {
 
-//    @Inject
-//    lateinit var factory: ViewModelFactory
-
     private val favoriteViewModel: FavoriteViewModel by viewModels()
 
     private var _binding: FragmentFavoriteBinding? = null
@@ -32,22 +29,11 @@ class FavoriteFragment : Fragment() {
         return binding.root
     }
 
-//    override fun onAttach(context: Context) {
-//        super.onAttach(context)
-//        (requireActivity().application as MyApplication).appComponent.inject(this)
-//    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
 
-//            val tourismAdapter = TourismAdapter()
-//            tourismAdapter.onItemClick = { selectedData ->
-//                val intent = Intent(activity, DetailTourismActivity::class.java)
-//                intent.putExtra(DetailTourismActivity.EXTRA_DATA, selectedData)
-//                startActivity(intent)
-//            }
             val restaurantAdapter = RestaurantAdapter()
             restaurantAdapter.onItemClick = { selectedData ->
                 val intent = Intent(activity, DetailRestaurantActivity::class.java)
@@ -55,12 +41,6 @@ class FavoriteFragment : Fragment() {
                 startActivity(intent)
             }
 
-
-//            favoriteViewModel.favoriteTourism.observe(viewLifecycleOwner) { dataTourism ->
-//                tourismAdapter.setData(dataTourism)
-//                binding.viewEmpty.root.visibility =
-//                    if (dataTourism.isNotEmpty()) View.GONE else View.VISIBLE
-//            }
             favoriteViewModel.favoriteRestaurant.observe(viewLifecycleOwner) { dataRestaurant ->
                 restaurantAdapter.setData(dataRestaurant)
                 binding.viewEmpty.root.visibility =

@@ -10,10 +10,6 @@ import dagger.hilt.components.SingletonComponent
 @Module(includes = [NetworkModule::class, DatabaseModule::class])
 @InstallIn(SingletonComponent::class)
 abstract class RepositoryModule {
-
-//    @Binds
-//    abstract fun provideRepository(tourismRepository: TourismRepository): ITourismRepository
-
     @Binds
     abstract fun provideRepository(restaurantRepository: RestaurantRepository): IRestaurantRepository
 

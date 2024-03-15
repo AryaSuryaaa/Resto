@@ -15,6 +15,5 @@ abstract class AppModule {
     @Binds
     @ViewModelScoped
     abstract fun provideRestaurantUseCase(restaurantInteractor: RestaurantInteractor): RestaurantUseCase
-//    abstract fun provideTourismUseCase(tourismInteractor: TourismInteractor): TourismUseCase
 
 }

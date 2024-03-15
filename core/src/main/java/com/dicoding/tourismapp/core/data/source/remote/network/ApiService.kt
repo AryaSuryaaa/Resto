@@ -4,9 +4,6 @@ import com.dicoding.tourismapp.core.data.source.remote.response.ListRestaurantRe
 import retrofit2.http.GET
 
 interface ApiService {
-//    @GET("list")
-//    suspend fun getList(): ListTourismResponse
-
     @GET("list")
     suspend fun getListRestaurant(): ListRestaurantResponse
 }
