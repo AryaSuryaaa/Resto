@@ -9,7 +9,10 @@ import com.bumptech.glide.Glide
 import com.dicoding.tourismapp.R
 import com.dicoding.tourismapp.core.domain.model.Restaurant
 import com.dicoding.tourismapp.databinding.ActivityDetailRestaurantBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+
+@AndroidEntryPoint
 class DetailRestaurantActivity  : AppCompatActivity() {
 
   companion object {
