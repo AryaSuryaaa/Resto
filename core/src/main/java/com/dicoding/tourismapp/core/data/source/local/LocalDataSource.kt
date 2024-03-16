@@ -18,4 +18,6 @@ class LocalDataSource @Inject constructor(private val restaurantDao: RestaurantD
         restaurant.isFavorite = newState
         restaurantDao.updateFavoriteRestaurant(restaurant)
     }
+
+    fun searchRestaurants(searchQuery: String): Flow<List<RestaurantEntity>> = restaurantDao.searchRestaurants(searchQuery)
 }

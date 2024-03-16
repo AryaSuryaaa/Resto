@@ -11,4 +11,7 @@ class RestaurantInteractor @Inject constructor(private val restaurantRepository:
   override fun getFavoriteRestaurant() = restaurantRepository.getFavoriteRestaurant()
 
   override fun setFavoriteRestaurant(restaurant: Restaurant, state: Boolean) = restaurantRepository.setFavoriteRestaurant(restaurant, state)
+
+  override fun searchRestaurants(searchQuery: String)= restaurantRepository.searchRestaurants(searchQuery)
+
 }

@@ -7,7 +7,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(restaurantUseCase: RestaurantUseCase) : ViewModel() {
-    val restaurant = restaurantUseCase.getAllRestaurant().asLiveData()
-}
+class HomeViewModel @Inject constructor(private val restaurantUseCase: RestaurantUseCase) : ViewModel() {
 
+    // Mendapatkan semua restoran
+    val restaurant = restaurantUseCase.getAllRestaurant().asLiveData()
+
+    // Fungsi untuk melakukan pencarian
+    fun searchRestaurants(query: String) = restaurantUseCase.searchRestaurants(query).asLiveData()
+}

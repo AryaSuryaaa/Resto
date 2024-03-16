@@ -2,9 +2,9 @@ package com.dicoding.tourismapp.home
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,6 +23,8 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+    private lateinit var restaurantAdapter: RestaurantAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -36,41 +38,79 @@ class HomeFragment : Fragment() {
 
         if (activity != null) {
 
-            val restaurantAdapter = RestaurantAdapter()
+            restaurantAdapter = RestaurantAdapter()
             restaurantAdapter.onItemClick = { selectedData ->
                 val intent = Intent(activity, DetailRestaurantActivity::class.java)
                 intent.putExtra(DetailRestaurantActivity.EXTRA_DATA, selectedData)
                 startActivity(intent)
             }
 
-            homeViewModel.restaurant.observe(viewLifecycleOwner) { restaurant ->
-                if (restaurant != null) {
-                    when (restaurant) {
-                        is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
-                        is Resource.Success -> {
-                            binding.progressBar.visibility = View.GONE
-                            restaurantAdapter.setData(restaurant.data)
-                        }
-
-                        is Resource.Error -> {
-                            binding.progressBar.visibility = View.GONE
-                            binding.viewError.root.visibility = View.VISIBLE
-                            binding.viewError.tvError.text =
-                                restaurant.message ?: getString(R.string.something_wrong)
-                        }
-                    }
-                }
-            }
+            observeRestaurantData()
 
             with(binding.rvTourism) {
                 layoutManager = LinearLayoutManager(context)
                 setHasFixedSize(true)
                 adapter = restaurantAdapter
             }
+
+            setHasOptionsMenu(true)
         }
     }
 
+    private fun observeRestaurantData() {
+        homeViewModel.restaurant.observe(viewLifecycleOwner) { result ->
+            when (result) {
+                is Resource.Loading -> showLoading(true)
+                is Resource.Success -> {
+                    showLoading(false)
+                    restaurantAdapter.setData(result.data)
+                }
+                is Resource.Error -> {
+                    showLoading(false)
+                    showError(result.message ?: getString(R.string.something_wrong))
+                }
+            }
+        }
+    }
 
+    private fun showLoading(isLoading: Boolean) {
+        binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
+    }
+
+    private fun showError(message: String) {
+        binding.viewError.root.visibility = View.VISIBLE
+        binding.viewError.tvError.text = message
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.home_menu, menu)
+
+        val searchItem = menu.findItem(R.id.search)
+        val searchView = searchItem?.actionView as SearchView
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+
+//                Toast.makeText(context, "Search query: $query", Toast.LENGTH_SHORT).show()
+                return true
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                if (newText.isBlank()) {
+                    observeRestaurantData()
+                } else {
+                    searchRestaurants(newText)
+                }
+                return false
+            }
+        })
+    }
+
+    private fun searchRestaurants(query: String) {
+        homeViewModel.searchRestaurants(query).observe(viewLifecycleOwner) { searchResults ->
+            restaurantAdapter.setData(searchResults)
+        }
+    }
 
     override fun onDestroyView() {
         super.onDestroyView()

@@ -23,4 +23,7 @@ interface RestaurantDao {
   @Update
   fun updateFavoriteRestaurant(restaurant: RestaurantEntity)
 
+  @Query("SELECT * FROM restaurant WHERE name LIKE '%' || :searchQuery || '%'")
+  fun searchRestaurants(searchQuery: String): Flow<List<RestaurantEntity>>
+
 }

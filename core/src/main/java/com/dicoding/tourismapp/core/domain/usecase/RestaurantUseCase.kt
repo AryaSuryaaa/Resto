@@ -8,4 +8,6 @@ interface RestaurantUseCase {
   fun getAllRestaurant(): Flow<Resource<List<Restaurant>>>
   fun getFavoriteRestaurant(): Flow<List<Restaurant>>
   fun setFavoriteRestaurant(restaurant: Restaurant, state: Boolean)
+
+  fun searchRestaurants(searchQuery: String): Flow<List<Restaurant>>
 }

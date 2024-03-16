@@ -46,4 +46,8 @@ class RestaurantRepository  @Inject constructor(
     appExecutors.diskIO().execute { localDataSource.setFavoriteTourism(restaurantEntity, state) }
   }
 
+  override fun searchRestaurants(searchQuery: String): Flow<List<Restaurant>> {
+    return localDataSource.searchRestaurants(searchQuery).map { DataMapper.mapEntitiesToDomain(it) }
+  }
+
 }
