@@ -9,7 +9,7 @@ plugins {
 apply from: '../shared_dependencies.gradle'
 
 android {
-    namespace 'com.dicoding.tourismapp.maps'
+    namespace 'com.aryasurya.restaurantreview.maps'
     compileSdk 33
 
     defaultConfig {
