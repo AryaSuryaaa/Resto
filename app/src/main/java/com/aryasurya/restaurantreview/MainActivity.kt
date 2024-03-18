@@ -4,13 +4,11 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import com.aryasurya.restaurantreview.databinding.ActivityMainBinding
-import com.aryasurya.restaurantreview.favorite.FavoriteFragment
 import com.aryasurya.restaurantreview.home.HomeFragment
 import com.google.android.material.navigation.NavigationView
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,7 +54,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 title = getString(R.string.app_name)
             }
             R.id.nav_favorite -> {
-                fragment = FavoriteFragment()
+//                fragment = FavoriteFragment()
+                fragment = Class.forName("com.aryasurya.restaurantreview.favorite.FavoriteFragment").newInstance() as Fragment
                 title = getString(R.string.menu_favorite)
             }
             R.id.nav_map -> {

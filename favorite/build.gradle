@@ -1,23 +1,19 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
+    id 'com.android.dynamic-feature'
+    id 'org.jetbrains.kotlin.android'
     id 'kotlin-android-extensions'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
 }
+
 apply from: '../shared_dependencies.gradle'
 
 android {
-    compileSdkVersion 30
+    namespace 'com.aryasurya.restaurantreview.favorite'
+    compileSdk 33
 
     defaultConfig {
-        applicationId "com.aryasurya.restaurantreview"
-        minSdkVersion 24
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
-        multiDexEnabled true
-
+        minSdk 24
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -34,15 +30,13 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
     buildFeatures {
-        viewBinding = true
+        viewBinding true
     }
-    dynamicFeatures = [':maps', ':favorite']
 }
 
 dependencies {
     implementation project(":core")
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation project(":app")
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

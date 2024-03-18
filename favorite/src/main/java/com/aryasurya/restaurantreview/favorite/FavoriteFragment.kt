@@ -11,12 +11,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.aryasurya.restaurantreview.core.ui.RestaurantAdapter
 import com.aryasurya.restaurantreview.databinding.FragmentFavoriteBinding
 import com.aryasurya.restaurantreview.detail.DetailRestaurantActivity
-import dagger.hilt.android.AndroidEntryPoint
+import com.aryasurya.restaurantreview.di.FavoriteModuleDependencies
+import dagger.hilt.android.EntryPointAccessors
+import javax.inject.Inject
 
-@AndroidEntryPoint
 class FavoriteFragment : Fragment() {
 
-    private val favoriteViewModel: FavoriteViewModel by viewModels()
+    @Inject
+    lateinit var factory: ViewModelFactory
+
+    private val favoriteViewModel: FavoriteViewModel by viewModels {
+        factory
+    }
 
     private var _binding: FragmentFavoriteBinding? = null
     private val binding get() = _binding!!
@@ -30,6 +36,16 @@ class FavoriteFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        DaggerFavoriteComponent.builder()
+            .context(requireContext())
+            .appDependencies(
+                EntryPointAccessors.fromApplication(
+                    requireContext(),
+                    FavoriteModuleDependencies::class.java
+                )
+            )
+            .build()
+            .inject(this)
         super.onViewCreated(view, savedInstanceState)
 
         if (activity != null) {
