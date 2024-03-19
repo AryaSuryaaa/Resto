@@ -15,7 +15,8 @@
 
         <activity
             android:name="com.aryasurya.restaurantreview.MainActivity"
-            android:theme="@style/Theme.TourismApp.NoActionBar">
+            android:theme="@style/Theme.TourismApp.NoActionBar"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -26,7 +27,8 @@
         <activity
             android:name="com.aryasurya.restaurantreview.detail.DetailRestaurantActivity"
             android:label="@string/title_activity_detail_home"
-            android:theme="@style/Theme.TourismApp.NoActionBar" />
+            android:theme="@style/Theme.TourismApp.NoActionBar"
+            android:exported="false"/>
     </application>
 
 </manifest>

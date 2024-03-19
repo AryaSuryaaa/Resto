@@ -11,7 +11,6 @@ import kotlinx.parcelize.Parcelize
 @Entity(tableName = "restaurant")
 class RestaurantEntity (
   @PrimaryKey
-  @NonNull
   @ColumnInfo(name = "restaurantId")
   var restaurantId: String,
 
